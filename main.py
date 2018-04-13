@@ -30,8 +30,10 @@ def main():
 	df.round(3)
 	df.drop_duplicates(subset=['Position'],inplace=True)
 	df.to_pickle(os.path.join(path,'Datenbasis_Gefiltert_zusammengefuehrt.csv'))
-	# for example when you choose to observe the 
-	print meanValue("CV", 0.7, df)
+	#print medianValue('CV', 0.7, df)
+	print (conValue('CV', 0.7, df))
+
+
 
    #Step1: the statistical analysing
 def maxValue(provider, banddick, df):
@@ -48,8 +50,22 @@ def meanValue(provider, banddick, df):
 
 def Quater(provider, banddick, df):
 	# TODO: this function should be extended to Q2,Q3
-	df_cv = df.loc[(df['Hersteller'] == provider) & (df['Banddicke'] == banddick)]
+	df_cv = df.loc[(df['Hersteller'] == provider) & (df['B802.11 WiFi (wlp9s0)anddicke'] == banddick)]
 	return [df_cv['Banddicke1'].quantile(.25), df_cv['Banddicke2'].quantile(.25), df_cv['Banddicke3'].quantile(.25)]
+
+def medianValue(provider, banddick, df):
+	df_cv = df.loc[(df['Hersteller'] == provider) & (df['Banddicke'] == banddick)]
+	half =  int(df.size/2)
+	return [df_cv['Banddicke1'].iloc(half), df_cv['Banddicke2'].iloc(half), df_cv['Banddicke3'].iloc(half)]
+
+def conValue(provider, banddick, df):
+	# the convariance of the data
+	df_cv = df.loc[(df['Hersteller'] == provider) & (df['Banddicke'] == banddick)]
+	return df_cv.cov()
+
+def skewness(provider, banddick, df):
+	df_cv = df.loc[(df['Hersteller'] == provider) & (df['Banddicke'] == banddick)]
+	return [df_cv['Banddicke1'].skew(), df_cv['Banddicke2'].skew(), df_cv['Banddicke3'].skew()]
 
 
 if __name__ == '__main__':
