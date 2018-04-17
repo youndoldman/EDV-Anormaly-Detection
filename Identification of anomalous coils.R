@@ -3,6 +3,7 @@
 # Date: 2018
 library(stats)
 library(ggplot2)
+library(dplyr)
 library(plotrix)
 library(fitdistrplus)
 library(lmtest)
@@ -33,6 +34,15 @@ dfm_B2 = database[!duplicated(database[,'Banddicke2']),]
 #frequency
 frequencies <- list(100,50,10,1)
 aggfuncs <- list('mean','median','std')
+
+#mean
+mean_B2<- mean(dfm_B2[,'Banddicke2'])
+
+#median
+median_B2<-median(dfm_B2[,'Banddicke2'])
+
+#standard deviation
+var_B2 <- var(dfm_B2[,'Banddicke2'])
 
 # mixture of gaussian
 fit = Mclust(dfm_B2[,'Banddicke2'], G=4, model="V")
