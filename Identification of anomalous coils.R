@@ -11,8 +11,6 @@ library(xlsx)
 library(MASS)
 library(mclust, quietly=TRUE) #is used to fit Gaussian mixture models
 
-
-
 Sys.setlocale("LC_ALL","German")
 
 ### Input data
