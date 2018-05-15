@@ -10,6 +10,8 @@ library(lmtest)
 library(xlsx)
 library(MASS)
 library(mclust, quietly=TRUE) #is used to fit Gaussian mixture models
+library(shiny)
+library(ECharts2Shiny)
 
 Sys.setlocale("LC_ALL","German")
 
@@ -42,12 +44,16 @@ median_B2<-median(dfm_B2[,'Banddicke2'])
 #standard deviation
 var_B2 <- var(dfm_B2[,'Banddicke2'])
 
+#IQR The Interquartile Range
+IQR(dfm_B2[,'Banddicke2'], na.rm = FALSE, type = 6)
+
+#Pair plot
+
+
 # mixture of gaussian
 fit = Mclust(dfm_B2[,'Banddicke2'], G=4, model="V")
 summary(fit)
 plot(fit, what="density", main="", xlab="Velocity (Mm/s)")
 rug(dfm_B2[,'Banddicke2'])
-
-
-
+# UI
 
